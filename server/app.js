@@ -8,8 +8,20 @@ console.log(webdavConfig)
 const fs = require('fs')
 const sharp = require('sharp')
 const axios = require('axios');
+const stream = require('stream');
 
 let client;
+
+app.get('/imgDetail', async(req, res) => {
+  const filename = req.query.filename;
+  const imgUrl = client.getFileDownloadLink(filename);
+  const response = await axios.get(imgUrl, { responseType: 'arraybuffer' });
+  // Buffer转Stream
+  const buffer = response.data;
+  const bufferStream = new stream.PassThrough();
+  bufferStream.end(buffer)
+  bufferStream.pipe(res)
+});
 
 app.get('/img', (req, res) => {
   const filename = req.query.filename;

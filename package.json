@@ -17,6 +17,7 @@
     "lodash": "^4.17.20",
     "sharp": "^0.27.0",
     "vue": "^2.6.11",
+    "vue-gallery-slideshow": "^1.5.2",
     "vue-loaders": "^4.1.1",
     "vue-router": "^3.4.9",
     "vue-waterfall-plugin": "^1.1.0",

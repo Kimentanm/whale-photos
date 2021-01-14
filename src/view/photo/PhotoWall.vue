@@ -20,27 +20,33 @@
       background-color="#fff"
     >
       <template slot="item" slot-scope="props">
-        <div class="waterfall-img">
+        <div class="waterfall-img" @click="showImgDetail(props.data)">
           <img width="100%" :src="props.data.src" alt="" @load="$refs.waterfall.refresh">
           <div class="overlay"></div>
           <span class="img-name">{{ props.data.basename }}</span>
         </div>
       </template>
     </Waterfall>
+
+    <vue-gallery-slideshow :images="imageDetailList" :index="index" @close="index = null"></vue-gallery-slideshow>
   </v-container>
 </template>
 
 <script>
 import Waterfall from 'vue-waterfall-plugin';
+import VueGallerySlideshow from '@/components/GallerySlideshow';
 import { shuffle } from 'lodash'
 
 export default {
   name: 'PhotoWall',
   components: {
-    Waterfall
+    Waterfall,
+    VueGallerySlideshow
   },
   data: () => ({
-    imagesList: []
+    imagesList: [],
+    imageDetailList: [],
+    index: null
   }),
   watch: {
   },
@@ -49,17 +55,28 @@ export default {
   },
   methods: {
     getData() {},
+    showImgDetail(item) {
+      const index = this.imagesList.findIndex(img => img.src === item.src)
+      this.index = index
+    },
     async getAllPhotoList() {
       const res = await this.$http.get('/photo/list')
       if (res.code === 200) {
         res.data.forEach(item => {
           this.imagesList.push({
+            filename: item.filename,
             src: `/api/img?filename=${item.filename}`,
             basename: item.basename
           })
         });
       }
       this.imagesList = shuffle(this.imagesList)
+      this.imageDetailList = this.imagesList.map(item => {
+        return {
+          url: `/api/imgDetail?filename=${item.filename}`,
+          'mini-url': `/api/img?filename=${item.filename}`,
+        }
+      })
     }
   }
 }
@@ -114,6 +131,16 @@ export default {
       -webkit-transition: .3s;
       -o-transition: .3s;
       transition: .3s
+    }
+  }
+
+  .vgs__container {
+    top: 14%;
+  }
+
+  @media(max-width: 767px){
+    .vgs__container {
+      top: 50%;
     }
   }
 }
