@@ -1,24 +1,4 @@
-# whale-photos
+<h2 align="center">Whale Photo（鲸图）</h2>
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 介绍
+使用Webdav连接，直接展示网盘中所有图片的相册

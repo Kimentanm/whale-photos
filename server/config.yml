@@ -1,0 +1,9 @@
+webdav:
+  url: http://upload.kimen.com.cn/dav
+#  url: http://192.168.31.91:83/dav
+  username: Kimentanm@hotmail.com
+  password: MZSw10HsivBht2YJOxlySsQcvisvRVzK
+  imgType:
+    - jpg
+    - jpeg
+    - png
