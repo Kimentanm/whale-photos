@@ -1,5 +1,5 @@
 <template>
-  <v-container style="height: 100%">
+  <v-container class="photo-wall" style="height: 100%">
     <vue-waterfall-easy style="height: 100%;width: 100%" :imgs-arr="imagesItem" @scrollReachBottom="getData" />
   </v-container>
 </template>
@@ -33,3 +33,10 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.photo-wall {
+  .vue-waterfall-easy-scroll {
+    overflow-y: auto !important;
+  }
+}
+</style>

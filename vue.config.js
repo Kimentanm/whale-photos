@@ -41,6 +41,14 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/api/test': {
+        target: 'http://upload.kimen.com.cn/dav/',
+        changeOrigin: true,
+        ws: true,
+        pathRewrite: {
+          '^/api/test': ''
+        }
       }
     }
   }

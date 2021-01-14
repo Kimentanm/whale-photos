@@ -5,11 +5,9 @@ const ymal = require('yamljs');
 const internalIp = require('internal-ip');
 const webdavConfig = ymal.load('server/config.yml').webdav
 console.log(webdavConfig)
-const request = require('request');
-const url = require('url');
-// const imagemin = require('gulp-imagemin')
 const fs = require('fs')
 const sharp = require('sharp')
+const axios = require('axios');
 
 let client;
 
@@ -21,23 +19,12 @@ app.get('/img', (req, res) => {
     if (stat && stat.isFile()) {
       fs.createReadStream(path).pipe(res)
     } else {
-      const downloadLink = client.getFileDownloadLink(filename);
-      const imgUrl = downloadLink + `?username=${webdavConfig.username}&password=${webdavConfig.password}`
-      const parsedUrl = url.parse(imgUrl);
-      const referrer = parsedUrl.protocol + '//' + parsedUrl.host;
-      const options = {
-        method: 'GET',
-        url: imgUrl,
-        headers: {
-          'Referer': referrer,
-          'Accept-Encoding': 'gzip, deflate'
-        }
-      };
-      const requestStream = request(options)
+      const imgUrl = client.getFileDownloadLink(filename);
+      const response = await axios.get(imgUrl, { responseType: 'arraybuffer' });
       // 图片压缩
-      const buffer = await streamToBuffer(requestStream);
+      const buffer = response.data;
       const lastPath = path.substring(0, path.lastIndexOf('/'));
-      fs.mkdir(lastPath, { recursive: true }, () => {
+      fs.mkdir(lastPath, { recursive: true }, async() => {
         const sharpStream = sharp(buffer)
           .resize(1000)
           .webp({ quality: 80 })
@@ -94,7 +81,7 @@ const imgMatch = (fileName) => {
   const imgTypeList = webdavConfig.imgType;
   let flag = false;
   for (let i = 0; i < imgTypeList.length; i++) {
-    if (fileName.endsWith('.' + imgTypeList[i])) {
+    if (fileName.toUpperCase().endsWith('.' + imgTypeList[i].toUpperCase())) {
       flag = true;
       break
     }
