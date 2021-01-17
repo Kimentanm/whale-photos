@@ -35,7 +35,7 @@
 <script>
 import Waterfall from 'vue-waterfall-plugin';
 import VueGallerySlideshow from '@/components/GallerySlideshow';
-import { shuffle } from 'lodash'
+import PhotoMixin from '@/view/mixin/photoMixin'
 
 export default {
   name: 'PhotoWall',
@@ -43,9 +43,10 @@ export default {
     Waterfall,
     VueGallerySlideshow
   },
+  mixins: [
+    PhotoMixin
+  ],
   data: () => ({
-    imagesList: [],
-    imageDetailList: [],
     index: null
   }),
   watch: {
@@ -54,29 +55,8 @@ export default {
     await this.getAllPhotoList()
   },
   methods: {
-    getData() {},
     showImgDetail(item) {
-      const index = this.imagesList.findIndex(img => img.src === item.src)
-      this.index = index
-    },
-    async getAllPhotoList() {
-      const res = await this.$http.get('/photo/list')
-      if (res.code === 200) {
-        res.data.forEach(item => {
-          this.imagesList.push({
-            filename: item.filename,
-            src: `/api/img?filename=${item.filename}`,
-            basename: item.basename
-          })
-        });
-      }
-      this.imagesList = shuffle(this.imagesList)
-      this.imageDetailList = this.imagesList.map(item => {
-        return {
-          url: `/api/imgDetail?filename=${item.filename}`,
-          'mini-url': `/api/img?filename=${item.filename}`,
-        }
-      })
+      this.index = this.imagesList.findIndex(img => img.src === item.src)
     }
   }
 }

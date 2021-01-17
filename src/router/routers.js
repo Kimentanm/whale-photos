@@ -36,7 +36,7 @@ export default [
           icon: 'mdi-google-photos',
           showInMenu: true
         },
-        component: () => import('@/view/photo/PhotoWall')
+        component: () => import('@/view/photo/PhotoAlbum')
       },
       {
         path: 'time',
