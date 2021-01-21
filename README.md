@@ -1,4 +1,4 @@
-<h2 align="center">Whale Photos（鲸图）</h2>
+<h2 align="center">Whale Photos（鲸图）<img width="20" src="./public/favicon.ico" /></h2>
 
 ## 介绍
 使用`Webdav`连接网盘，直接展示网盘中所有图片的一款相册
