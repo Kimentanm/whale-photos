@@ -9,6 +9,7 @@ const fs = require('fs')
 const sharp = require('sharp')
 const axios = require('axios');
 const stream = require('stream');
+const exif = require('exif-parser')
 
 let client;
 
@@ -28,13 +29,21 @@ app.get('/img', (req, res) => {
   const path = './data' + filename
   // 判断缩略图是否存在，若存在直接读取缩略图,若不存在的话则去访问
   fs.stat(path, async(err, stat) => {
+    if (err) {
+      console.log(err)
+    }
     if (stat && stat.isFile()) {
       fs.createReadStream(path).pipe(res)
     } else {
       const imgUrl = client.getFileDownloadLink(filename);
+      console.log(imgUrl);
       const response = await axios.get(imgUrl, { responseType: 'arraybuffer' });
       // 图片压缩
       const buffer = response.data;
+      exif.create(buffer)
+      const parser = exif.create(buffer)
+      const result = parser.parse()
+      console.log(JSON.stringify(result, null, 2))
       const lastPath = path.substring(0, path.lastIndexOf('/'));
       fs.mkdir(lastPath, { recursive: true }, async() => {
         const sharpStream = sharp(buffer)
@@ -101,13 +110,13 @@ const imgMatch = (fileName) => {
   return flag;
 }
 
-function streamToBuffer(stream) {
-  return new Promise((resolve, reject) => {
-    const buffers = [];
-    stream.on('error', reject);
-    stream.on('data', (data) => buffers.push(data))
-    stream.on('end', () => resolve(Buffer.concat(buffers)))
-  });
+function toArrayBuffer(buf) {
+  const ab = new ArrayBuffer(buf.length);
+  const view = new Uint8Array(ab);
+  for (let i = 0; i < buf.length; ++i) {
+    view[i] = buf[i];
+  }
+  return ab;
 }
 
 const server = app.listen(3000, () => {

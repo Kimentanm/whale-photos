@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.3",
+    "exif-parser": "^0.1.12",
     "express": "^4.17.1",
     "gulp": "^4.0.2",
     "internal-ip": "^6.2.0",

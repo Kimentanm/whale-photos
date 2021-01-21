@@ -46,7 +46,7 @@ export default [
           icon: 'mdi-camera-timer',
           showInMenu: true
         },
-        component: () => import('@/view/photo/PhotoWall')
+        component: () => import('@/view/photo/PhotoTime')
       },
       {
         path: 'people',

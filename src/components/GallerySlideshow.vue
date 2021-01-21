@@ -61,7 +61,7 @@
             v-for="(img, i) in images"
             :key="i"
             class="vgs__gallery__container__img"
-            :src="typeof img === 'string' ? img : img['mini-url']"
+            :src="typeof img === 'string' ? img : img.miniUrl"
             :class="{ 'vgs__gallery__container__img--active': i === imgIndex}"
             :alt="typeof img === 'string' ? '' : img.alt"
             @click.stop="onClickThumb(img, i)"

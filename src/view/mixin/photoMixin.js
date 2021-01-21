@@ -27,7 +27,7 @@ export default {
       this.imageDetailList = this.imagesList.map(item => {
         return {
           url: `/api/imgDetail?filename=${item.filename}`,
-          'mini-url': `/api/img?filename=${item.filename}`,
+          miniUrl: `/api/img?filename=${item.filename}`,
         }
       })
     }
