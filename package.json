@@ -11,19 +11,13 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.3",
-    "exif-parser": "^0.1.12",
-    "express": "^4.17.1",
-    "gulp": "^4.0.2",
-    "internal-ip": "^6.2.0",
     "lodash": "^4.17.20",
-    "sharp": "^0.27.0",
     "vue": "^2.6.11",
     "vue-gallery-slideshow": "^1.5.2",
     "vue-loaders": "^4.1.1",
     "vue-router": "^3.4.9",
     "vue-waterfall-plugin": "^1.1.0",
-    "vuetify": "^2.2.11",
-    "yamljs": "^0.3.0"
+    "vuetify": "^2.2.11"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.12.7",

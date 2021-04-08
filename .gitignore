@@ -75,7 +75,7 @@ classes/
 # Maven
 ######################
 /log/
-/target/
+target/
 
 ######################
 # Gradle
@@ -149,4 +149,9 @@ Desktop.ini
 
 !/lib/*.jar
 
-/data
+/server/data
+
+server/dav/**
+app/dist/**
+dav/**
+config/**

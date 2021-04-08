@@ -35,19 +35,11 @@ module.exports = {
     hot: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000/',
+        target: 'http://localhost:8089/',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
           '^/api': ''
-        }
-      },
-      '/api/test': {
-        target: 'http://upload.kimen.com.cn/dav/',
-        changeOrigin: true,
-        ws: true,
-        pathRewrite: {
-          '^/api/test': ''
         }
       }
     }
