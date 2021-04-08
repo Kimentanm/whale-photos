@@ -1,8 +1,0 @@
-webdav:
-  url: Webdav Url
-  username: Webdav Username
-  password: Webdav Password
-  imgType:
-    - jpg
-    - jpeg
-    - png
